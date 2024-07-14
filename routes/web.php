@@ -21,8 +21,8 @@ Route::get('/educations', function () {
     return view('educations', ['title' => 'Edukasi']);
 });
 
-
-Route::resource('/login', LoginController::class);
+Route::get('/login', [LoginController::class, 'index']);
+Route::post('/login', [LoginController::class, 'authenticate']);
 
 Route::resource('/register', RegisterController::class);
 
