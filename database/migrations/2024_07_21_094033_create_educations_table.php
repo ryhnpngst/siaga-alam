@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('educations', function (Blueprint $table) {
             $table->id();
             $table->string('thumbnail')->nullable();
             $table->string('title');
-            $table->foreignId('author_id')->constrained(
-                table: 'users',
-                indexName: 'articles_author_id',
-            )->onDelete('cascade')->onUpdate('cascade');
+            $table->string('author');
             $table->string('slug')->unique();
             $table->text('body');
             $table->string('meta_title')->nullable();
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('articles');
+        Schema::dropIfExists('educations');
     }
 };

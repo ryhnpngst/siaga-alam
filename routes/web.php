@@ -12,11 +12,13 @@ use App\Http\Controllers\ReportController;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/article', [ArticleController::class, 'index']);
+Route::get('/articles', [ArticleController::class, 'index']);
+Route::get('/articles/{article:slug}', [ArticleController::class, 'show']);
+
 
 Route::resource('/report', ReportController::class);
 
-Route::get('/education', [EducationController::class, 'index']);
+Route::get('/educations', [EducationController::class, 'index']);
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
