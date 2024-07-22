@@ -12,7 +12,7 @@
                             <img class="mr-4 w-16 h-16 rounded-full"
                                 src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="Jese Leos">
                             <div>
-                                <a href="#" rel="author"
+                                <a href="/articles?author={{ $article->author->username }}" rel="author"
                                     class="text-xl font-bold text-gray-900 dark:text-white">{{ $article->author->name }}</a>
                                 <p class="text-base text-gray-500 dark:text-gray-400"><time pubdate
                                         datetime="2022-02-08"

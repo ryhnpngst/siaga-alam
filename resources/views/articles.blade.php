@@ -6,10 +6,12 @@
                 <h2 class="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Berita
                     Terbaru</h2>
                 {{-- <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">We use an agile approach to test
-                    assumptions and connect with the needs of your audience early and often.</p> --}}
+                        assumptions and connect with the needs of your audience early and often.</p> --}}
             </div>
-            <div class="grid gap-8 lg:grid-cols-2">
-                @foreach ($articles as $article)
+            <x-search></x-search>
+            {{ $articles->links() }}
+            <div class="my-8 grid gap-8 lg:grid-cols-2">
+                @forelse ($articles as $article)
                     <article
                         class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                         <div class="flex justify-between items-center mb-5 text-gray-500">
@@ -25,16 +27,19 @@
                             </span> --}}
                             <span class="text-sm">{{ $article->created_at->diffForHumans() }}</span>
                         </div>
-                        <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a
-                                href="/articles/{{ $article['slug'] }}">{{ $article['title'] }}</a></h2>
+                        <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:underline">
+                            <a href="/articles/{{ $article['slug'] }}">{{ $article['title'] }}</a>
+                        </h2>
                         <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{ $article['body'] }}</p>
                         <div class="flex justify-between items-center">
                             <div class="flex items-center space-x-4">
                                 <img class="w-7 h-7 rounded-full"
                                     src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
                                     alt="Jese Leos avatar" />
-                                <span class="font-medium dark:text-white">
-                                    {{ $article->author->name }}
+                                <span class="font-medium dark:text-white hover:underline">
+                                    <a href="/articles?author={{ $article->author->username }}">
+                                        {{ $article->author->name }}
+                                    </a>
                                 </span>
                             </div>
                             <a href="/articles/{{ $article['slug'] }}"
@@ -49,9 +54,11 @@
                             </a>
                         </div>
                     </article>
-                @endforeach
-
+                @empty
+                    <p>Artikel tidak ada.</p>
+                @endforelse
             </div>
         </div>
     </section>
+    {{ $articles->links() }}
 </x-layout>

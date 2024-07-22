@@ -1,20 +1,21 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EducationController;
-use App\Http\Controllers\ReportController;
 
 Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/articles', [ArticleController::class, 'index']);
 Route::get('/articles/{article:slug}', [ArticleController::class, 'show']);
-
+Route::get('/authors/{user:username}', [ArticleController::class, 'getArticleByUser']);
 
 Route::resource('/report', ReportController::class);
 
