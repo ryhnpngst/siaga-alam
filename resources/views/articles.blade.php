@@ -55,9 +55,37 @@
                         </div>
                     </article>
                 @empty
-                    <p>Artikel tidak ada.</p>
-                @endforelse
             </div>
+            <section>
+                <div class="max-w-screen-xl px-4 py-8 mx-auto text-center lg:py-16 lg:px-6">
+                    <figure class="max-w-screen-md mx-auto">
+                        <svg class="h-12 mx-auto mb-3 text-gray-400 dark:text-gray-600" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 27">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                        <p class="text-2xl font-medium text-gray-900 dark:text-white">Tidak ada hasil berdasarkan
+                            pencarian anda.</p>
+                        <figcaption class="flex items-center justify-center mt-6 space-x-3">
+                            <div class="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700">
+
+                                <div class="pl-3 text-sm font-light text-gray-500 dark:text-gray-400">
+                                    <a href="/articles" class="flex items-center hover:underline">
+                                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4" />
+                                        </svg>
+                                        <span class="ml-2">Kembali ke semua artikel</span>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </figcaption>
+                    </figure>
+                </div>
+            </section>
+            @endforelse
         </div>
     </section>
     {{ $articles->links() }}
