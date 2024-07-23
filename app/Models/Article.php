@@ -22,8 +22,17 @@ class Article extends Model
 
     public function scopeFilter(Builder $query, array $filters): void
     {
+        // $query->when($filters['search'] ?? false, function ($query, $search) {
+        //     $query->where('title', 'like', '%' . $search . '%');
+        // });
         $query->when($filters['search'] ?? false, function ($query, $search) {
-            $query->where('title', 'like', '%' . $search . '%');
+            $query->where(function ($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('body', 'like', '%' . $search . '%')
+                    ->orWhereHas('author', function ($query) use ($search) {
+                        $query->where('name', 'like', '%' . $search . '%');
+                    });
+            });
         });
 
         $query->when($filters['author'] ?? false, function ($query, $author) {
