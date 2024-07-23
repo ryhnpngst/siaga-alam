@@ -15,13 +15,11 @@
 
         <x-admin.sidebar></x-admin.sidebar>
 
-
-
         <main class="p-4 md:ml-64 h-auto pt-20">
-
             {{ $slot }}
         </main>
 
+        {{-- <x-admin.footer></x-admin.footer> --}}
     </div>
 </body>
 

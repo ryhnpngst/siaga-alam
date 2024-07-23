@@ -12,6 +12,9 @@ class Article extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
+    // eager loading
+    protected $with = ['author'];
+
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');

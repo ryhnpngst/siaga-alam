@@ -30,12 +30,15 @@
                         <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:underline">
                             <a href="/articles/{{ $article['slug'] }}">{{ $article['title'] }}</a>
                         </h2>
-                        <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{ $article['body'] }}</p>
+                        <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                            {{ Str::limit($article['body'], 100) }}</p>
                         <div class="flex justify-between items-center">
                             <div class="flex items-center space-x-4">
-                                <img class="w-7 h-7 rounded-full"
-                                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
-                                    alt="Jese Leos avatar" />
+                                <div
+                                    class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                                    <span
+                                        class="font-medium text-gray-600 dark:text-gray-300">{{ $article->author->initials }}</span>
+                                </div>
                                 <span class="font-medium dark:text-white hover:underline">
                                     <a href="/articles?author={{ $article->author->username }}">
                                         {{ $article->author->name }}
@@ -69,7 +72,7 @@
                         <figcaption class="flex items-center justify-center mt-6 space-x-3">
                             <div class="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700">
 
-                                <div class="pl-3 text-sm font-light text-gray-500 dark:text-gray-400">
+                                <div class="pl-3 text-sm font-light text-blue-600">
                                     <a href="/articles" class="flex items-center hover:underline">
                                         <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                             width="24" height="24" fill="none" viewBox="0 0 24 24">

@@ -56,4 +56,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(Article::class, 'author_id');
     }
+
+    public function getInitialsAttribute()
+    {
+        $names = explode(' ', $this->name);
+        $names = array_slice($names, 0, 2);
+        $initials = '';
+
+        foreach ($names as $name) {
+            $initials .= strtoupper(substr($name, 0, 1));
+        }
+
+        return $initials;
+    }
 }

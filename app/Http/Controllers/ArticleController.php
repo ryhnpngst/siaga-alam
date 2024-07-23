@@ -19,10 +19,8 @@ class ArticleController extends Controller
     {
         $articles = $user->articles()->paginate(10);
 
-        return view('articles', ['title' => "Artikel oleh $user->name", 'articles' => $articles]);
+        return view('articles', compact('articles'));
     }
-
-
 
     public function show(Article $article)
     {
