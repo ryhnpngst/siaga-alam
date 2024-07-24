@@ -21,8 +21,6 @@ return new class extends Migration
             )->onDelete('cascade')->onUpdate('cascade');
             $table->string('slug')->unique();
             $table->longText('body');
-            $table->string('meta_title')->nullable();
-            $table->string('meta_description')->nullable();
             $table->timestamps();
         });
     }

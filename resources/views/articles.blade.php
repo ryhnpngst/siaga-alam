@@ -31,7 +31,7 @@
                             <a href="/articles/{{ $article['slug'] }}">{{ $article['title'] }}</a>
                         </h2>
                         <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
-                            {{ Str::limit($article['body'], 100) }}</p>
+                            {{ Str::limit(strip_tags($article['body']), 100) }}</p>
                         <div class="flex justify-between items-center">
                             <div class="flex items-center space-x-4">
                                 <div
