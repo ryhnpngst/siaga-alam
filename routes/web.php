@@ -12,6 +12,7 @@ use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\AdminReportsController;
 use App\Http\Controllers\AdminArticlesController;
 use App\Http\Controllers\AdminEducationsController;
+use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/', [HomeController::class, 'index']);
 
@@ -31,7 +32,7 @@ Route::middleware('guest')->group(function () {
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'admin')->group(function () {
   Route::get('/admin', function () {
     return view('admin.index', ['title' => 'Admin Dashboard']);
   });

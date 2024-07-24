@@ -17,7 +17,7 @@ class AdminArticlesController extends Controller
     {
         $articles = Article::filter(request(['search']))->latest()->paginate(10)->withQueryString();
 
-        return view('admin.articles', ['title' => 'Articles'], compact('articles'));
+        return view('admin.articles.index', ['title' => 'Articles'], compact('articles'));
     }
 
     public function __construct()
@@ -27,12 +27,12 @@ class AdminArticlesController extends Controller
 
     public function show(Article $article)
     {
-        return view('admin.articles-show', ['title' => 'Detail Artikel'], compact('article'));
+        return view('admin.articles.show', ['title' => 'Detail Artikel'], compact('article'));
     }
 
     public function create()
     {
-        return view('admin.articles-create', ['title' => 'Buat Artikel']);
+        return view('admin.articles.create', ['title' => 'Buat Artikel']);
     }
 
     public function store(Request $request)
@@ -71,7 +71,7 @@ class AdminArticlesController extends Controller
 
     public function edit(Article $article)
     {
-        return view('admin.articles-edit', ['title' => 'Edit Artikel'], compact('article'));
+        return view('admin.articles.edit', ['title' => 'Edit Artikel'], compact('article'));
     }
 
     public function update(Request $request, Article $article)
