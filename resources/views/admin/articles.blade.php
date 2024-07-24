@@ -2,6 +2,21 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
         <div class="mx-auto max-w-screen-xl">
+            @if (session()->has('addArticleSuccess'))
+                <x-admin.alert>
+                    {{ session('addArticleSuccess') }}
+                </x-admin.alert>
+            @endif
+            @if (session()->has('editArticleSuccess'))
+                <x-admin.alert>
+                    {{ session('editArticleSuccess') }}
+                </x-admin.alert>
+            @endif
+            @if (session()->has('deleteArticleSuccess'))
+                <x-admin.alert>
+                    {{ session('deleteArticleSuccess') }}
+                </x-admin.alert>
+            @endif
             <!-- Start coding here -->
             <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                 <div
@@ -73,11 +88,11 @@
                                             <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
                                                 aria-labelledby="apple-imac-27-dropdown-button">
                                                 <li>
-                                                    <a href="#"
-                                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
+                                                    <a href="{{ route('articles.show', $article->id) }}"
+                                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lihat</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#"
+                                                    <a href="{{ route('articles.edit', $article->id) }}"
                                                         class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
                                                 </li>
                                             </ul>

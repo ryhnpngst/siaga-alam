@@ -1,11 +1,11 @@
-<x-layout>
-    <x-slot:title>{{ $article['title'] }}</x-slot:title>
+<x-admin.layout>
+    <x-slot:title>{{ $title }}</x-slot:title>
     <main class="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900 antialiased">
         <div class="flex justify-between px-4 mx-auto max-w-screen-xl ">
             <article
                 class="mx-auto w-full max-w-4xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
                 <header class="mb-4 lg:mb-6 not-format">
-                    <a href="/articles" class="font-medium text-xs text-blue-600 flex items-center hover:underline">
+                    <a href="/admin/articles" class="font-medium text-xs text-blue-600 flex items-center hover:underline">
                         <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                             height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -45,4 +45,4 @@
             </article>
         </div>
     </main>
-</x-layout>
+</x-admin.layout>

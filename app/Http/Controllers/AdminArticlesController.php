@@ -25,6 +25,11 @@ class AdminArticlesController extends Controller
         Paginator::defaultView('vendor.pagination.custom');
     }
 
+    public function show(Article $article)
+    {
+        return view('admin.articles-show', ['title' => 'Detail Artikel'], compact('article'));
+    }
+
     public function create()
     {
         return view('admin.articles-create', ['title' => 'Buat Artikel']);
@@ -47,7 +52,7 @@ class AdminArticlesController extends Controller
                 'body' => $request->body,
             ]);
 
-            return redirect('/admin/articles')->with('success', 'Artikel berhasil ditambahkan');
+            return redirect('/admin/articles')->with('addArticleSuccess', 'Artikel berhasil ditambahkan');
         }
 
         $image = $request->file('thumbnail');
@@ -61,8 +66,45 @@ class AdminArticlesController extends Controller
             'body' => $request->body,
         ]);
 
-        return redirect('/admin/articles')->with('success', 'Artikel berhasil ditambahkan');
+        return redirect('/admin/articles')->with('addArticleSuccess', 'Artikel berhasil ditambahkan');
     }
+
+    public function edit(Article $article)
+    {
+        return view('admin.articles-edit', ['title' => 'Edit Artikel'], compact('article'));
+    }
+
+    public function update(Request $request, Article $article)
+    {
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+        ]);
+
+        if ($request->file('thumbnail')) {
+            Storage::delete('public/images/' . $article->thumbnail);
+
+            $image = $request->file('thumbnail');
+            $image->storeAs('public/images', $image->hashName());
+
+            $article->update([
+                'thumbnail' => $image->hashName(),
+                'title' => $request->title,
+                'slug' => Str::slug($request->title),
+                'body' => $request->body,
+            ]);
+        } else {
+            $article->update([
+                'title' => $request->title,
+                'slug' => Str::slug($request->title),
+                'body' => $request->body,
+            ]);
+        }
+
+        return redirect('/admin/articles')->with('editArticleSuccess', 'Artikel berhasil diubah');
+    }
+
 
     public function destroy(Article $article)
     {
@@ -70,6 +112,6 @@ class AdminArticlesController extends Controller
 
         $article->delete();
 
-        return redirect('/admin/articles')->with('success', 'Artikel berhasil dihapus');
+        return redirect('/admin/articles')->with('deleteArticleSuccess', 'Artikel berhasil dihapus');
     }
 }
