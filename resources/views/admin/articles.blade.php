@@ -97,12 +97,13 @@
                                                 </li>
                                             </ul>
                                             <div class="py-1">
-                                                <form action="{{ route('articles.destroy', $article->id) }}"
+                                                <form class="delete-form"
+                                                    action="{{ route('articles.destroy', $article->id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button
-                                                        class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</button>
+                                                    <button type="button"
+                                                        class="delete-button block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -116,5 +117,31 @@
             </div>
         </div>
     </section>
+    <script>
+        document.querySelectorAll('.delete-button').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault(); // Mencegah aksi default dari tombol submit
+
+                // Menemukan form yang sesuai
+                const form = this.closest('form');
+
+                Swal.fire({
+                    title: "Yakin ingin menghapus artikel ini?",
+                    text: "Kamu tidak akan bisa mengembalikan data yang telah dihapus!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Ya, hapus!",
+                    cancelButtonText: "Tidak, batalkan!",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Jika dikonfirmasi, submit form secara manual
+                        form.submit();
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        Swal.fire("Cancelled", "Your article is safe :)", "error");
+                    }
+                });
+            });
+        });
+    </script>
 
 </x-admin.layout>
