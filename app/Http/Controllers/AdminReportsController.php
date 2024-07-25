@@ -42,40 +42,45 @@ class AdminReportsController extends Controller
     public function update(Request $request, Report $report)
     {
         $request->validate([
-            'category' => 'required',
-            'other-category' => 'required_if:category,Yang Lain',
-            'description' => 'required',
-            'location' => 'required',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            // 'category' => 'required',
+            // 'other-category' => 'required_if:category,Yang Lain',
+            // 'description' => 'required',
+            // 'location' => 'required',
+            // 'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'status' => 'required',
         ]);
 
-        if ($request->category == 'Yang Lain') {
-            $category = $request->input('other-category');
-        } else {
-            $category = $request->category;
-        }
+        // if ($request->category == 'Yang Lain') {
+        //     $category = $request->input('other-category');
+        // } else {
+        //     $category = $request->category;
+        // }
 
-        if ($request->file('photo')) {
-            Storage::delete('public/photos/' . $report->photo);
+        // if ($request->file('photo')) {
+        //     Storage::delete('public/photos/' . $report->photo);
 
-            $photo = $request->file('photo');
-            $photo->storeAs('public/photos', $photo->hashName());
+        //     $photo = $request->file('photo');
+        //     $photo->storeAs('public/photos', $photo->hashName());
 
-            $report->update([
-                'category' => $category,
-                'description' => $request->description,
-                'location' => $request->location,
-                'photo' => $photo->hashName(),
-            ]);
-        } else {
-            $report->update([
-                'category' => $category,
-                'description' => $request->description,
-                'location' => $request->location,
-            ]);
-        }
+        //     $report->update([
+        //         'category' => $category,
+        //         'description' => $request->description,
+        //         'location' => $request->location,
+        //         'photo' => $photo->hashName(),
+        //     ]);
+        // } else {
+        //     $report->update([
+        //         'category' => $category,
+        //         'description' => $request->description,
+        //         'location' => $request->location,
+        //     ]);
+        // }
 
-        return redirect('/admin/reports')->with('editReportSuccess', 'Laporan berhasil diperbarui');
+        $report->update([
+            'status' => $request->status,
+        ]);
+
+        return redirect('/admin/reports')->with('editReportSuccess', 'Status laporan berhasil diperbarui menjadi ' . $request->status);
     }
 
     public function destroy(Report $report)

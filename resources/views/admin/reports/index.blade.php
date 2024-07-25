@@ -91,7 +91,7 @@
                                                 class="bg-blue-200 text-blue-900 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
                                                 Valid
                                             </span>
-                                        @elseif ($report['status'] === 'in valid')
+                                        @elseif ($report['status'] === 'invalid')
                                             <span
                                                 class="bg-red-200 text-red-900 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-800">
                                                 Tidak Valid
@@ -125,6 +125,11 @@
                                                 <li>
                                                     <a href="{{ route('reports.show', $report->id) }}"
                                                         class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lihat</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('reports.edit', $report->id) }}"
+                                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Ubah
+                                                        Status</a>
                                                 </li>
                                             </ul>
                                             <div class="py-1">
