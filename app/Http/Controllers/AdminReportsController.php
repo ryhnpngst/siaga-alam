@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Storage;
 
 class AdminReportsController extends Controller
 {
@@ -20,6 +21,10 @@ class AdminReportsController extends Controller
         Paginator::defaultView('vendor.pagination.custom');
     }
 
+    public function show()
+    {
+    }
+
     public function create()
     {
         return view('admin.reports.create', ['title' => 'Tambah Laporan']);
@@ -29,15 +34,56 @@ class AdminReportsController extends Controller
     {
     }
 
-    public function edit()
+    public function edit(Report $report)
     {
+        return view('admin.reports.edit', ['title' => 'Edit Laporan'], compact('report'));
     }
 
-    public function update()
+    public function update(Request $request, Report $report)
     {
+        $request->validate([
+            'category' => 'required',
+            'other-category' => 'required_if:category,Yang Lain',
+            'description' => 'required',
+            'location' => 'required',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+        ]);
+
+        if ($request->category == 'Yang Lain') {
+            $category = $request->input('other-category');
+        } else {
+            $category = $request->category;
+        }
+
+        if ($request->file('photo')) {
+            Storage::delete('public/photos/' . $report->photo);
+
+            $photo = $request->file('photo');
+            $photo->storeAs('public/photos', $photo->hashName());
+
+            $report->update([
+                'category' => $category,
+                'description' => $request->description,
+                'location' => $request->location,
+                'photo' => $photo->hashName(),
+            ]);
+        } else {
+            $report->update([
+                'category' => $category,
+                'description' => $request->description,
+                'location' => $request->location,
+            ]);
+        }
+
+        return redirect('/admin/reports')->with('editReportSuccess', 'Laporan berhasil diperbarui');
     }
 
-    public function destroy()
+    public function destroy(Report $report)
     {
+        Storage::delete('public/photos/' . $report->photo);
+
+        $report->delete();
+
+        return redirect('/admin/reports')->with('deleteReportSuccess', 'Laporan berhasil dihapus');
     }
 }

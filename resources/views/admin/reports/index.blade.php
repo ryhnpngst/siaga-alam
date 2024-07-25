@@ -2,21 +2,21 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
         <div class="mx-auto max-w-screen-xl">
-            {{-- @if (session()->has('addArticleSuccess'))
+            @if (session()->has('addReportSuccess'))
                 <x-admin.alert>
-                    {{ session('addArticleSuccess') }}
+                    {{ session('addReportSuccess') }}
                 </x-admin.alert>
             @endif
-            @if (session()->has('editArticleSuccess'))
+            @if (session()->has('editReportSuccess'))
                 <x-admin.alert>
-                    {{ session('editArticleSuccess') }}
+                    {{ session('editReportSuccess') }}
                 </x-admin.alert>
             @endif
-            @if (session()->has('deleteArticleSuccess'))
+            @if (session()->has('deleteReportSuccess'))
                 <x-admin.alert>
-                    {{ session('deleteArticleSuccess') }}
+                    {{ session('deleteReportSuccess') }}
                 </x-admin.alert>
-            @endif --}}
+            @endif
             <!-- Start coding here -->
             <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                 <div
@@ -56,10 +56,11 @@
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="px-4 py-3">Kategori</th>
+                                <th scope="col" class="px-4 py-3">Bencana/Insiden</th>
                                 <th scope="col" class="px-4 py-3">Pelapor</th>
                                 <th scope="col" class="px-4 py-3">Lokasi</th>
                                 <th scope="col" class="px-4 py-3">Deskripsi</th>
+                                <th scope="col" class="px-4 py-3">Status</th>
                                 <th scope="col" class="px-4 py-3">
                                     <span class="sr-only">Actions</span>
                                 </th>
@@ -74,6 +75,38 @@
                                     <td class="px-4 py-3">{{ $report->author->name }}</td>
                                     <td class="px-4 py-3">{{ $report['location'] }}</td>
                                     <td class="px-4 py-3">{{ $report['description'] }}</td>
+                                    <td class="px-4 py-3">
+                                        @if ($report['status'] === 'accepted')
+                                            <span
+                                                class="bg-green-200 text-green-900 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-800">
+                                                Diterima
+                                            </span>
+                                        @elseif ($report['status'] === 'in verification')
+                                            <span
+                                                class="bg-yellow-200 text-yellow-900 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-800">
+                                                Dalam Verifikasi
+                                            </span>
+                                        @elseif ($report['status'] === 'valid')
+                                            <span
+                                                class="bg-blue-200 text-blue-900 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                                                Valid
+                                            </span>
+                                        @elseif ($report['status'] === 'in valid')
+                                            <span
+                                                class="bg-red-200 text-red-900 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-800">
+                                                Tidak Valid
+                                            </span>
+                                        @elseif($report['status'] === 'in progress')
+                                            <span
+                                                class="bg-yellow-200 text-yellow-900 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-800">
+                                                Sedang Diproses
+                                            </span>
+                                        @elseif($report['status'] === 'finished')
+                                            <span
+                                                class="bg-green-200 text-green-900 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-800">
+                                                Selesai
+                                            </span>
+                                        @endif
                                     <td class="px-4 py-3 flex items-center justify-end">
                                         <button id="apple-imac-27-dropdown-button"
                                             data-dropdown-toggle="{{ $report['id'] }}"
@@ -100,7 +133,8 @@
                                             </ul>
                                             <div class="py-1">
                                                 <form class="delete-form"
-                                                    action="{{ route('reports.destroy', $report->id) }}" method="POST">
+                                                    action="{{ route('reports.destroy', $report->id) }}"
+                                                    method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button"

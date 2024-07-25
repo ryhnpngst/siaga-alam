@@ -20,7 +20,14 @@ return new class extends Migration
             $table->string('category');
             $table->string('description');
             $table->string('location');
-            $table->enum('status', )
+            $table->enum('status', [
+                'accepted',
+                'in verification',
+                'valid',
+                'invalid',
+                'in progress',
+                'finished',
+            ])->default('accepted');
             $table->string('photo')->nullable();
             $table->timestamps();
         });
