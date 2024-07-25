@@ -16,6 +16,7 @@ class AdminDashboardController extends Controller
         $reportsCount = Report::count();
         $articlesCount = Article::count();
         $educationsCount = Education::count();
+
         return view('admin.index', ['title' => 'Admin Dashboard'], compact('usersCount', 'reportsCount', 'articlesCount', 'educationsCount'));
     }
 }
