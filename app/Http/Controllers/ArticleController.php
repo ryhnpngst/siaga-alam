@@ -10,14 +10,14 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $articles = Article::filter(request(['search', 'author']))->latest()->paginate(10);
+        $articles = Article::filter(request(['search', 'author']))->latest()->paginate(10)->withQueryString();
 
         return view('articles', ['title' => 'Artikel'], compact('articles'));
     }
 
     public function getArticleByUser(User $user)
     {
-        $articles = $user->articles()->paginate(10);
+        $articles = $user->articles()->paginate(10)->withQueryString();
 
         return view('articles', compact('articles'));
     }

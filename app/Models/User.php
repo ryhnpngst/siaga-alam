@@ -58,6 +58,11 @@ class User extends Authenticatable
         return $this->hasMany(Article::class, 'author_id');
     }
 
+    public function educations(): HasMany
+    {
+        return $this->hasMany(Education::class, 'author_id');
+    }
+
     public function reports(): HasMany
     {
         return $this->hasMany(Report::class, 'author_id');

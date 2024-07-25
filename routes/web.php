@@ -22,6 +22,8 @@ Route::get('/authors/{user:username}', [ArticleController::class, 'getArticleByU
 
 
 Route::get('/educations', [EducationController::class, 'index']);
+Route::get('/educations/{education:slug}', [EducationController::class, 'show']);
+Route::get('/educations/authors/{user:username}', [EducationController::class, 'getEducationByUser']);
 
 Route::middleware('guest')->group(function () {
   Route::get('/login', [LoginController::class, 'index'])->name('login');
