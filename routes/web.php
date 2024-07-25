@@ -20,7 +20,6 @@ Route::get('/articles', [ArticleController::class, 'index']);
 Route::get('/articles/{article:slug}', [ArticleController::class, 'show']);
 Route::get('/authors/{user:username}', [ArticleController::class, 'getArticleByUser']);
 
-Route::resource('/report', ReportController::class);
 
 Route::get('/educations', [EducationController::class, 'index']);
 
@@ -46,4 +45,8 @@ Route::middleware('auth', 'admin')->group(function () {
   Route::resource('/admin/educations', AdminEducationsController::class);
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+Route::middleware('auth')->group(function () {
+  Route::get('/dashboard', [DashboardController::class, 'index']);
+
+  Route::resource('/report', ReportController::class);
+});

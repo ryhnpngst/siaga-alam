@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('author_id')->constrained(
+                table: 'users',
+                indexName: 'reports_author_id',
+            )->onDelete('cascade')->onUpdate('cascade');
+            $table->string('category');
+            $table->string('description');
+            $table->string('location');
+            $table->enum('status', )
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }
