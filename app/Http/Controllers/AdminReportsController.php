@@ -21,13 +21,13 @@ class AdminReportsController extends Controller
         Paginator::defaultView('vendor.pagination.custom');
     }
 
-    public function show()
+    public function show(Report $report)
     {
+        return view('admin.reports.show', ['title' => 'Detail Laporan'], compact('report'));
     }
 
     public function create()
     {
-        return view('admin.reports.create', ['title' => 'Tambah Laporan']);
     }
 
     public function store()
