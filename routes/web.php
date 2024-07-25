@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ArticleController;
@@ -11,8 +12,8 @@ use App\Http\Controllers\EducationController;
 use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\AdminReportsController;
 use App\Http\Controllers\AdminArticlesController;
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminEducationsController;
-use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/', [HomeController::class, 'index']);
 
@@ -34,9 +35,7 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::middleware('auth', 'admin')->group(function () {
-  Route::get('/admin', function () {
-    return view('admin.index', ['title' => 'Admin Dashboard']);
-  });
+  Route::get('/admin', [AdminDashboardController::class, 'index']);
 
   Route::resource('/admin/reports', AdminReportsController::class);
 
