@@ -64,7 +64,7 @@
             {{ \Carbon\Carbon::parse($report->created_at)->translatedFormat('l, d F Y \j\a\m H:i') }}</p>
         <p><strong>Lokasi:</strong> {{ $report->location }}</p>
         <p>Silakan klik tombol di bawah ini untuk melihat detail lengkap:</p>
-        {{-- <p><a href="{{ $url }}" class="button">Lihat Aduan</a></p> --}}
+        <p><a href="https://siagaalam.my.id/admin/reports" class="button">Lihat Aduan</a></p>
     </div>
 </body>
 
